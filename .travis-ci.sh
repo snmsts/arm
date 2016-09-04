@@ -50,20 +50,25 @@ function setup_arm_chroot {
     sudo chroot ${CHROOT_DIR} bash -c "cd ${TRAVIS_BUILD_DIR} && ./.travis-ci.sh"
 }
 
+function run_test {
+    echo "Running tests"
+    echo "Environment: $(uname -a)"
+
+    ${TEST_COMMAND}
+}
+
 if [ -e "/.chroot_is_done" ]; then
     # We are inside ARM chroot
     echo "Running inside chrooted environment"
 
     . ./envvars.sh
+    run_test
 else
     if [ "${ARCH}" = "arm" ]; then
         # ARM test run, need to set up chrooted environment first
         echo "Setting up chrooted ARM environment"
         setup_arm_chroot
+    else
+        run_test
     fi
 fi
-
-echo "Running tests"
-echo "Environment: $(uname -a)"
-
-${TEST_COMMAND}
