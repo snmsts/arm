@@ -12,9 +12,6 @@ HOST_DEPENDENCIES="debootstrap qemu-user-static binfmt-support sbuild"
 # Debian package dependencies for the chrooted environment
 GUEST_DEPENDENCIES="build-essential git m4 sudo python"
 
-# Command used to run the tests
-TEST_COMMAND="make test"
-
 function setup_arm_chroot {
     # Host dependencies
     sudo apt-get install -qq -y ${HOST_DEPENDENCIES}
@@ -46,29 +43,11 @@ function setup_arm_chroot {
     # Indicate chroot environment has been set up
     sudo touch ${CHROOT_DIR}/.chroot_is_done
 
-    # Call ourselves again which will cause tests to run
-    sudo chroot ${CHROOT_DIR} bash -c "cd ${TRAVIS_BUILD_DIR} && ./scripts/.travis-ci.sh"
 }
 
-function run_test {
-    echo "Running tests"
-    echo "Environment: $(uname -a)"
-
-    ${TEST_COMMAND}
-}
-
-if [ -e "/.chroot_is_done" ]; then
-    # We are inside ARM chroot
-    echo "Running inside chrooted environment"
-
-    . ./envvars.sh
-    run_test
-else
-    if [ "${ARCH}" = "arm" ]; then
-        # ARM test run, need to set up chrooted environment first
-        echo "Setting up chrooted ARM environment"
-        setup_arm_chroot
-    else
-        run_test
-    fi
+if [ "${ARCH}" = "arm" ]; then
+    # ARM test run, need to set up chrooted environment first
+    echo "Setting up chrooted ARM environment"
+    setup_arm_chroot
 fi
+
