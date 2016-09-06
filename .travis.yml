@@ -6,4 +6,5 @@ env:
   - ARCH=arm
 
 script:
-  - "bash -ex scripts/.travis-ci.sh"
+  - "bash -ex scripts/qemu-setup.sh"
+  - "bash -ex scripts/qemu-test.sh"
