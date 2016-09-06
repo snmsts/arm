@@ -6,4 +6,4 @@ env:
   - ARCH=arm
 
 script:
-  - "bash -ex .travis-ci.sh"
+  - "bash -ex scripts/.travis-ci.sh"
