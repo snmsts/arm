@@ -1,9 +1,15 @@
-language: erlang
-
+language: c
 sudo: required
 env:
-  - ARCH=x64
-  - ARCH=arm
+  global:
+    - CHROOT_DIR=/tmp/arm-chroot
+  matrix:
+    - ARCH=x64
+    - ARCH=arm
+
+cache:
+  directories:
+    - $CHROOT_DIR
 
 script:
   - "bash -ex scripts/qemu-setup.sh"

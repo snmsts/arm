@@ -2,7 +2,6 @@
 
 # Command used to run the tests
 TEST_COMMAND="make test"
-CHROOT_DIR=/tmp/arm-chroot
 
 function run_test {
     echo "Running tests"
