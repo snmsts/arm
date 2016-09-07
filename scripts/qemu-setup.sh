@@ -16,7 +16,7 @@ function setup_arm_chroot {
     sudo apt-get install -qq -y ${HOST_DEPENDENCIES}
 
     # Create chrooted environment
-    sudo mkdir ${CHROOT_DIR}
+    sudo mkdir -p ${CHROOT_DIR}
     sudo debootstrap --foreign --no-check-gpg --include=fakeroot,build-essential \
          --arch=${CHROOT_ARCH} ${VERSION} ${CHROOT_DIR} ${MIRROR}
     sudo cp /usr/bin/qemu-arm-static ${CHROOT_DIR}/usr/bin/
