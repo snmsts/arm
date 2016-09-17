@@ -5,10 +5,10 @@ MIRROR=http://archive.raspbian.org/raspbian
 VERSION=wheezy
 
 # Debian package dependencies for the host
-HOST_DEPENDENCIES=${HOST_DEPENDENCIES:"debootstrap qemu-user-static binfmt-support sbuild"}
+HOST_DEPENDENCIES=${HOST_DEPENDENCIES:'debootstrap qemu-user-static binfmt-support sbuild'}
 
 # Debian package dependencies for the chrooted environment
-GUEST_DEPENDENCIES=${GUEST_DEPENDENCIES:"build-essential git m4 sudo python"}
+GUEST_DEPENDENCIES=${GUEST_DEPENDENCIES:'build-essential git m4 sudo python'}
 
 function setup_armhf_chroot {
     # Host dependencies
