@@ -3,6 +3,8 @@ test:
 	cd roswell;./bootstrap
 	cd roswell;./configure
 	cd roswell;make
+	cd roswell;sudo make install
+	ros install prove
 	cd roswell;make test
 	echo test;
 
