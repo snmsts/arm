@@ -17,11 +17,11 @@ if [ -e "/.chroot_is_done" ]; then
     . ./envvars.sh
     run_test
 else
-    if [ "${ARCH}" = "arm" ]; then
+    if [ "${CHROOT_ARCH}" = "armhf" ]; then
+        sudo rsync -av ${TRAVIS_BUILD_DIR}/ ${CHROOT_DIR}/${TRAVIS_BUILD_DIR}/
         # Call ourselves again which will cause tests to run
         sudo chroot ${CHROOT_DIR} bash -c "cd ${TRAVIS_BUILD_DIR} && ./scripts/qemu-test.sh"
     else
         run_test
     fi
 fi
-

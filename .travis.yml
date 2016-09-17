@@ -4,13 +4,13 @@ env:
   global:
     - CHROOT_DIR=/tmp/arm-chroot
   matrix:
-    - ARCH=x64
-    - ARCH=arm
+    - CHROOT_ARCH=x64
+    - CHROOT_ARCH=armhf
 
-cache:
-  directories:
-    - $CHROOT_DIR
+#cache:
+#  directories:
+#    - $CHROOT_DIR
 
 script:
-  - "bash -ex scripts/qemu-setup.sh"
-  - "bash -ex scripts/qemu-test.sh"
+  - bash -ex scripts/qemu-setup.sh
+  - bash -ex scripts/qemu-test.sh

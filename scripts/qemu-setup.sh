@@ -3,7 +3,6 @@
 
 MIRROR=http://archive.raspbian.org/raspbian
 VERSION=wheezy
-CHROOT_ARCH=armhf
 
 # Debian package dependencies for the host
 HOST_DEPENDENCIES="debootstrap qemu-user-static binfmt-support sbuild"
@@ -11,7 +10,7 @@ HOST_DEPENDENCIES="debootstrap qemu-user-static binfmt-support sbuild"
 # Debian package dependencies for the chrooted environment
 GUEST_DEPENDENCIES="build-essential git m4 sudo python"
 
-function setup_arm_chroot {
+function setup_armhf_chroot {
     # Host dependencies
     sudo apt-get install -qq -y ${HOST_DEPENDENCIES}
 
@@ -26,7 +25,7 @@ function setup_arm_chroot {
 
     # Create file with environment variables which will be used inside chrooted
     # environment
-    echo "export ARCH=${ARCH}" > envvars.sh
+    echo "export CHROOT_ARCH=${CHROOT_ARCH}" > envvars.sh
     echo "export TRAVIS_BUILD_DIR=${TRAVIS_BUILD_DIR}" >> envvars.sh
     chmod a+x envvars.sh
 
@@ -37,16 +36,14 @@ function setup_arm_chroot {
 
     # Create build dir and copy travis build files to our chroot environment
     sudo mkdir -p ${CHROOT_DIR}/${TRAVIS_BUILD_DIR}
-    sudo rsync -av ${TRAVIS_BUILD_DIR}/ ${CHROOT_DIR}/${TRAVIS_BUILD_DIR}/
 
     # Indicate chroot environment has been set up
     sudo touch ${CHROOT_DIR}/.chroot_is_done
 
 }
 
-if [ "${ARCH}" = "arm" ]; then
+if [ "${CHROOT_ARCH}" = "armhf" ]; then
     # ARM test run, need to set up chrooted environment first
     echo "Setting up chrooted ARM environment"
-    setup_arm_chroot
+    setup_armhf_chroot
 fi
-
