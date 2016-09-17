@@ -1,3 +1,5 @@
+export PATH := ~/.roswell/bin:$(PATH)
+
 test:
 	git clone https://github.com/roswell/roswell
 	cd roswell;./bootstrap
