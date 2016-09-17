@@ -5,7 +5,7 @@ env:
     - CHROOT_DIR=/tmp/arm-chroot
   matrix:
     - CHROOT_ARCH=x64
-    - CHROOT_ARCH=armhf GUEST_DEPENDENCIES="build-essential git sudo autoconf automake"
+    - CHROOT_ARCH=armhf GUEST_DEPENDENCIES="build-essential git sudo autoconf automake libcurl4-openssl-dev"
 
 #cache:
 #  directories:
